@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/leptune/t'
+let g:netrw_dirhist_2='/home/leptune/github/srbank/backend'
+let g:netrw_dirhist_3='/home/leptune/t'
+let g:netrw_dirhist_4='/home/leptune/working/ctl'
+let g:netrw_dirhist_5='/home/leptune/.vim/bundle/minibufexpl.vim'
