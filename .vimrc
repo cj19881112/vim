@@ -9,7 +9,15 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'godlygeek/tabular'
 Bundle 'Shougo/neocomplcache.vim'
 Bundle 'fholgado/minibufexpl.vim'
-filetype plugin indent on " recover filetype when vundle startup finished
+filetype on " recover filetype when vundle startup finished
+
+set autoindent
+"set nowrap
+set wildmenu
+set nocp
+set smartindent
+set smartcase
+syntax on
 
 """"""""''"""""neocomplcache"""""""""""""""""""
 "neocomplcache is the abbreviation of "neo-completion with cache". It provides
@@ -114,7 +122,7 @@ let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " open current file tags lists
 map <F2> :TlistToggle<cr>
 
-""""""""NerdTree"""""""""""""""
+"""""""""NerdTree"""""""""""""""
 let NERDTreeWinPos=1
 let NERDTreeQuitOnOpen = 1
 let NERDChristmasTree = 1
@@ -180,8 +188,6 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
-
-
 
 " swith tab to space when saving
 function RemoveWhitespaceOfC()
@@ -256,16 +262,9 @@ set number
 set showcmd
 set ruler
 set title
-set autoindent
-"set nowrap
-set wildmenu
-set nocp
-set smartindent
-set smartcase
-syntax on
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
+"" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+"" so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
 imap <C-b> <Left>
@@ -277,44 +276,44 @@ imap <C-e> <End>
 imap <C-d> <Del>
 imap <C-i> <Esc>
 
-" Indent Python in the Google way.
-
-setlocal indentexpr=GetGooglePythonIndent(v:lnum)
-
-let s:maxoff = 50 " maximum number of lines to look backwards.
-
-function GetGooglePythonIndent(lnum)
-
-  " Indent inside parens.
-  " Align with the open paren unless it is at the end of the line.
-  " E.g.
-  "   open_paren_not_at_EOL(100,
-  "                         (200,
-  "                          300),
-  "                         400)
-  "   open_paren_at_EOL(
-  "       100, 200, 300, 400)
-  call cursor(a:lnum, 1)
-  let [par_line, par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
-        \ "line('.') < " . (a:lnum - s:maxoff) . " ? dummy :"
-        \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
-        \ . " =~ '\\(Comment\\|String\\)$'")
-  if par_line > 0
-    call cursor(par_line, 1)
-    if par_col != col("$") - 1
-      return par_col
-    endif
-  endif
-
-  " Delegate the rest to the original function.
-  return GetPythonIndent(a:lnum)
-
-endfunction
-
-let pyindent_nested_paren="&sw*2"
-let pyindent_open_paren="&sw*2"
-
-" 按F3格式化xml文件
+"" Indent Python in the Google way.
+"
+"setlocal indentexpr=GetGooglePythonIndent(v:lnum)
+"
+"let s:maxoff = 50 " maximum number of lines to look backwards.
+"
+"function GetGooglePythonIndent(lnum)
+"
+"  " Indent inside parens.
+"  " Align with the open paren unless it is at the end of the line.
+"  " E.g.
+"  "   open_paren_not_at_EOL(100,
+"  "                         (200,
+"  "                          300),
+"  "                         400)
+"  "   open_paren_at_EOL(
+"  "       100, 200, 300, 400)
+"  call cursor(a:lnum, 1)
+"  let [par_line, par_col] = searchpairpos('(\|{\|\[', '', ')\|}\|\]', 'bW',
+"        \ "line('.') < " . (a:lnum - s:maxoff) . " ? dummy :"
+"        \ . " synIDattr(synID(line('.'), col('.'), 1), 'name')"
+"        \ . " =~ '\\(Comment\\|String\\)$'")
+"  if par_line > 0
+"    call cursor(par_line, 1)
+"    if par_col != col("$") - 1
+"      return par_col
+"    endif
+"  endif
+"
+"  " Delegate the rest to the original function.
+"  return GetPythonIndent(a:lnum)
+"
+"endfunction
+"
+"let pyindent_nested_paren="&sw*2"
+"let pyindent_open_paren="&sw*2"
+"
+"" 按F3格式化xml文件
 map <F3> :silent 1,$!xmllint --format -recover - 2> /dev/null <cr>
 "colorscheme delek
 let NERDTreeDirArrows = 0 "目录列表前不显示箭头符，避免乱码
