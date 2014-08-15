@@ -314,6 +314,6 @@ imap <C-i> <Esc>
 "let pyindent_open_paren="&sw*2"
 "
 "" 按F3格式化xml文件
-map <F3> :silent 1,$!xmllint --format -recover - 2> /dev/null <cr>
+map <F3> :silent 1,$!xmllint --format -recover - 2> /dev/null <cr><cr>
 "colorscheme delek
 let NERDTreeDirArrows = 0 "目录列表前不显示箭头符，避免乱码
